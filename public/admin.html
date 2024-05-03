@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Wisdom Kasaragod Family Conference | May 12</title>
+
+        <!-- Meta description for the website -->
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta property="og:title" content="TEDxAJCE - 2024" />
+        <meta property="og:description"
+          content="TEDxAJCE is an independently organized TEDx event with the goal of catering the global experience of TED to our community at Amal Jyothi College of Engineering" />
+        <meta property="og:image" content="static/images/logo.png" />
+        <meta name="robots" content="follow, index" />
+        <meta content="TEDxAJCE,TEDxAJCE-2024" name="keywords" />
+        <meta content="TEDxAJCE" name="author" />
+
+        <!-- favicon -->
+        <link
+            rel="shortcut icon"
+            href="static/images/favicon.ico"
+            type="image/x-icon"
+        />
+        <link
+            rel="icon"
+            href="static/images/favicon.ico"
+            type="image/x-icon"
+        />
+        <!-- favicon -->
+
+        <!-- QR Code -->
+        <script src="https://unpkg.com/html5-qrcode"></script>
+
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-auth-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-database-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-firestore-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-functions-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-messaging-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-storage-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-analytics-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-remote-config-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-performance-compat.js"
+        ></script>
+        <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+        <!-- Setup bootstrap 4 with cdn-->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+        <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+        />
+
+        <!-- Local styling -->
+        <link rel="stylesheet" href="static/css/style.css" />
+
+        <style>
+            #qr-reader {
+                padding: 20px !important;
+                border: 1.5px solid #b2b2b2 !important;
+                border-radius: 8px;
+            }
+
+            #qr-reader img[alt="Info icon"] {
+                display: none;
+            }
+
+            #qr-reader img[alt="Camera based scan"] {
+                width: 100px !important;
+                height: 100px !important;
+            }
+
+            #qr-reader button {
+                padding: 10px 20px;
+                border: 1px solid #b2b2b2;
+                outline: none;
+                border-radius: 0.25em;
+                color: white;
+                font-size: 15px;
+                cursor: pointer;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                background-color: #008000ad;
+                transition: 0.3s background-color;
+            }
+
+            #qr-reader button:hover {
+                background-color: #008000;
+            }
+
+            #html5-qrcode-anchor-scan-type-change {
+                text-decoration: none !important;
+                color: #1d9bf0;
+            }
+
+            video {
+                width: 100% !important;
+                border: 1px solid #b2b2b2 !important;
+                border-radius: 0.25em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img
+                    src="static/images/logo.png"
+                    width="150"
+                    class="d-inline-block align-top mx-auto"
+                    alt=""
+                />
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <button
+                            class="btn btn-primary mr-2 mb-2"
+                            data-toggle="modal"
+                            data-target="#attendanceModal"
+                        >
+                            Mark Attendance
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-danger mb-2" onclick="logout()">
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Attendance Modal -->
+        <div
+            class="modal fade"
+            id="attendanceModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="attendanceModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="attendanceModalLabel">
+                            Mark Attendance
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body px-2 py-2" id="qr-reader"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container container-fluid">
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <!-- Registration Details Table -->
+                    <h3 class="font-weight-bold">Registration Details</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Registration No.</th>
+                                <th>Name</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrationTableBody">
+                            <!-- Registration details will be appended here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- JS -->
+        <script src="static/js/admin.js"></script>
+
+        <!-- Bootstrap JS and JQuery -->
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- Bootstrap JS and JQuery -->
+    </body>
+</html>
