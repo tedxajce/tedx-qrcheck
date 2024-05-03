@@ -1,0 +1,58 @@
+body {
+    background-size: 50px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    min-height: 80vh;
+}
+
+#hero-section {
+    margin-top: 10rem;
+}
+
+#hero-text {
+    background-color: rgba(255, 255, 255, 0.793);
+    width: fit-content;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.blur-background {
+    filter: blur(5px); /* You can adjust the blur intensity as needed */
+    pointer-events: none; /* Allows clicks to pass through the modal to elements behind it */
+}
+
+.content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 9999 !important;
+}
+
+footer {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.793); 
+}
+
+footer p, a {
+    color: gray;
+}
+
+.centered-qrcode {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    #hero-section {
+        margin-top: 5rem;
+    }
+    .bg-img {
+        background-size: fill;
+    }
+}
