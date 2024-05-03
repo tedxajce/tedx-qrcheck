@@ -211,6 +211,26 @@
         </div>
 
         <div class="container container-fluid">
+            <div class="row my-2">
+                <!-- Mark attendance by registration Number -->
+                <div class="col-lg-4 d-flex">
+                    <input
+                        type="number"
+                        class="form-control mb-2"
+                        placeholder="Registration Number"
+                        id="registrationNumber"
+                    />
+                </div>
+                <div class="col-lg-2">
+                    <button
+                        class="btn btn-outline-secondary ml-2 mb-2"
+                        type="button"
+                        onclick="markAttendance(document.getElementById('registrationNumber').value)"
+                    >
+                        Mark Attendance
+                    </button>
+                </div>
+            </div>
             <div class="row mt-4">
                 <div class="col-lg-12">
                     <!-- Registration Details Table -->
