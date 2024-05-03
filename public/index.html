@@ -29,17 +29,8 @@
         />
         <!-- favicon -->
 
-        <!-- Include jsPDF library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-        <!-- Include html2canvas library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-
-        <!-- Include dompurify library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
-
-        <!-- Include qrcodejs library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- QR Code -->
+        <script src="https://unpkg.com/html5-qrcode"></script>
 
         <!-- update the version number as needed -->
         <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
@@ -100,12 +91,58 @@
 
         <!-- Local styling -->
         <link rel="stylesheet" href="static/css/style.css" />
+
+        <style>
+            #qr-reader {
+                padding: 20px !important;
+                border: 1.5px solid #b2b2b2 !important;
+                border-radius: 8px;
+            }
+
+            #qr-reader img[alt="Info icon"] {
+                display: none;
+            }
+
+            #qr-reader img[alt="Camera based scan"] {
+                width: 100px !important;
+                height: 100px !important;
+            }
+
+            #qr-reader button {
+                padding: 10px 20px;
+                border: 1px solid #b2b2b2;
+                outline: none;
+                border-radius: 0.25em;
+                color: white;
+                font-size: 15px;
+                cursor: pointer;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                background-color: #008000ad;
+                transition: 0.3s background-color;
+            }
+
+            #qr-reader button:hover {
+                background-color: #008000;
+            }
+
+            #html5-qrcode-anchor-scan-type-change {
+                text-decoration: none !important;
+                color: #1d9bf0;
+            }
+
+            video {
+                width: 100% !important;
+                border: 1px solid #b2b2b2 !important;
+                border-radius: 0.25em;
+            }
+        </style>
     </head>
 
     <body>
         <div class="content">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">
                     <img
                         src="static/images/logo.png"
@@ -114,12 +151,84 @@
                         alt=""
                     />
                 </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button
+                                class="btn btn-primary mr-2 mb-2"
+                                data-toggle="modal"
+                                data-target="#attendanceModal"
+                            >
+                                Verify Attendance
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </nav>
+
+            <!-- Attendance Modal -->
+            <div
+                class="modal fade"
+                id="attendanceModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="attendanceModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="attendanceModalLabel">
+                                Verify Attendance
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body px-2 py-2" id="qr-reader"></div>
+
+                        <!-- Option to search user id -->
+                        <div class="modal-footer">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="search-user-id"
+                                placeholder="Search User ID"
+                            />
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="search-user-id-button"
+                                onclick="getUserData(document.getElementById('search-user-id').value)"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Hero Section -->
             <section>
                 <div class="container" id="hero-section">
-                    Hello, World!
+                    
                 </div>
             </section>
             
