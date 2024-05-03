@@ -1,89 +1,178 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>TEDxAJCE - 2024</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.11.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.11.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.11.1/firebase-performance-compat.js"></script>
-    <!-- 
+        <!-- Meta description for the website -->
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta property="og:title" content="TEDxAJCE - 2024" />
+        <meta property="og:description"
+          content="TEDxAJCE is an independently organized TEDx event with the goal of catering the global experience of TED to our community at Amal Jyothi College of Engineering" />
+        <meta property="og:image" content="static/images/logo.png" />
+        <meta name="robots" content="follow, index" />
+        <meta content="TEDxAJCE,TEDxAJCE-2024" name="keywords" />
+        <meta content="TEDxAJCE" name="author" />
+
+        <!-- favicon -->
+        <link
+            rel="shortcut icon"
+            href="static/images/logo.png"
+            type="image/x-icon"
+        />
+        <link
+            rel="icon"
+            href="static/images/logo.png"
+            type="image/x-icon"
+        />
+        <!-- favicon -->
+
+        <!-- Include jsPDF library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+        <!-- Include html2canvas library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+        <!-- Include dompurify library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"></script>
+
+        <!-- Include qrcodejs library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-auth-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-database-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-firestore-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-functions-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-messaging-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-storage-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-analytics-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-remote-config-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/10.7.1/firebase-performance-compat.js"
+        ></script>
+        <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+        <!-- Setup bootstrap 4 with cdn-->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+        <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+        />
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        <!-- Local styling -->
+        <link rel="stylesheet" href="static/css/style.css" />
+    </head>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <body>
+        <div class="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">
+                    <img
+                        src="static/images/logo.png"
+                        width="150"
+                        class="d-inline-block align-top mx-auto"
+                        alt=""
+                    />
+                </a>
+            </nav>
+
+            <!-- Hero Section -->
+            <section>
+                <div class="container" id="hero-section">
+                    Hello, World!
+                </div>
+            </section>
+            
+            <!-- Footer -->
+            <footer class="pt-3 pb-2 text-muted text-center text-small">
+                <p class="mb-1">
+                    © TEDxAJCE - 2024
+                </p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/tedxajce/"
+                            ><i class="fa fa-instagram"></i
+                        ></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a
+                            href="https://www.linkedin.com/company/tedx-ajce/"
+                            ><i class="fa fa-linkedin"></i
+                        ></a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a
+                          href="https://www.flickr.com/photos/165706544@N05/"
+                          ><i class="fa fa-flickr"></i
+                      ></a>
+                  </li>
+                </ul>
+            </footer>
+        </div>
+
+        <!-- JS -->
+        <script src="static/js/main.js"></script>
+
+        <!-- Bootstrap JS and JQuery -->
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- Bootstrap JS and JQuery -->
+
+        <script>
+            
+        </script>
+    </body>
 </html>
