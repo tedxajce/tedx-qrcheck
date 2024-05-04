@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
+        fetchAllAttendedUserData();
+
         function domReady(fn) {
             if (
                 document.readyState === "complete" ||
@@ -67,12 +69,21 @@ function displayRegistrationDetails(registrationNo, data) {
     var row = document.createElement("tr");
 
     row.id = `row_${registrationNo}`;
-    row.innerHTML = `
-    <td>${registrationNo}</td>
-    <td>${data.name}</td>
-    <td>${data.attendance}</td>
-    <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
-`;
+    if (data.attendance) {
+        row.innerHTML = `
+            <td>${registrationNo}</td>
+            <td>${data.name}</td>
+            <td>✅</td>
+            <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
+        `;
+    } else {
+        row.innerHTML = `
+            <td>${registrationNo}</td>
+            <td>${data.name}</td>
+            <td><button class="btn btn-success" onclick="markAttendance('${registrationNo}')">Mark Attendance</button></td>
+            <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
+        `;
+    }
 
     tableBody.appendChild(row);
 }
@@ -101,7 +112,7 @@ function fetchAllAttendedUserData() {
         registrationsRef.get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var registrationData = doc.data();
-                displayRegistrationDetails(doc.id, registrationData);
+                displayAttendedUserData(registrationData);
             });
         });
     } catch (e) {
