@@ -73,7 +73,7 @@ function displayRegistrationDetails(registrationNo, data) {
         row.innerHTML = `
             <td>${registrationNo}</td>
             <td>${data.name}</td>
-            <td>✅</td>
+            <td>Attendance Marked</td>
             <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
         `;
     } else {
@@ -109,6 +109,9 @@ function fetchAllAttendedUserData() {
             .collection("registrations")
             .where("attendance", "==", true);
 
+        var tableBody = document.getElementById("attendedTableBody");
+        tableBody.innerHTML = "";
+
         registrationsRef.get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var registrationData = doc.data();
@@ -129,12 +132,12 @@ function markAttendance(registrationNumber) {
             .then(() => {
                 alert("Attendance marked successfully");
             })
+            .then(() => {
+                fetchAllAttendedUserData();
+            })
             .catch((error) => {
                 console.error("Error writing document: ", error);
             });
-
-        // Fetch user data
-        fetchAllAttendedUserData();
     } catch (e) {
         console.error(`Error marking attendance for ${registrationNumber}`, e);
     }
