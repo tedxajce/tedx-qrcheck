@@ -74,7 +74,7 @@ function displayRegistrationDetails(registrationNo, data) {
             <td>${registrationNo}</td>
             <td>${data.name}</td>
             <td>Attendance Marked</td>
-            <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
+            <td><button class="btn btn-danger" disabled onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
         `;
     } else {
         row.innerHTML = `
@@ -131,9 +131,17 @@ function markAttendance(registrationNumber) {
             .set({ attendance: true }, { merge: true })
             .then(() => {
                 alert("Attendance marked successfully");
+                fetchAllAttendedUserData();
             })
             .then(() => {
-                fetchAllAttendedUserData();
+                // Set the attendance status in the table
+                var row = document.getElementById(`row_${registrationNumber}`);
+                row.innerHTML = `
+                    <td>${registrationNumber}</td>
+                    <td>${row.cells[1].innerText}</td>
+                    <td>Attendance Marked</td>
+                    <td><button class="btn btn-danger" disabled onclick="deleteEntry('${registrationNumber}')"><i class="fa fa-times"></i></button></td>
+                `;
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
