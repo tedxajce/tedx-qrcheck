@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in, proceed to retrieve data
-                console.log("Logged in successfully!")
+                console.log("Logged in successfully!");
             } else {
                 // User is not signed in, redirect to login page
                 window.location.replace("/login.html"); // Replace with your login page URL
@@ -25,22 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 displayRegistrationDetails(doc.id, registrationData);
             });
         });
-
-        // Function to display registration details in the table
-        function displayRegistrationDetails(registrationNo, data) {
-            var tableBody = document.getElementById("registrationTableBody");
-
-            var row = document.createElement("tr");
-
-            row.id = `row_${registrationNo}`;
-            row.innerHTML = `
-            <td>${registrationNo}</td>
-            <td>${data.name}</td>
-            <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
-        `;
-
-            tableBody.appendChild(row);
-        }
 
         function domReady(fn) {
             if (
@@ -76,21 +60,73 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Function to display registration details in the table
+function displayRegistrationDetails(registrationNo, data) {
+    var tableBody = document.getElementById("registrationTableBody");
+
+    var row = document.createElement("tr");
+
+    row.id = `row_${registrationNo}`;
+    row.innerHTML = `
+    <td>${registrationNo}</td>
+    <td>${data.name}</td>
+    <td>${data.attendance}</td>
+    <td><button class="btn btn-danger" onclick="deleteEntry('${registrationNo}')"><i class="fa fa-times"></i></button></td>
+`;
+
+    tableBody.appendChild(row);
+}
+
+function displayAttendedUserData(data) {
+    var tableBody = document.getElementById("attendedTableBody");
+
+    var row = document.createElement("tr");
+
+    row.id = `row_${registrationNo}`;
+    row.innerHTML = `
+    <td>${registrationNo}</td>
+    <td>${data.name}</td>
+`;
+
+    tableBody.appendChild(row);
+}
+
+function fetchAllAttendedUserData() {
+    try {
+        var db = firebase.firestore();
+        var registrationsRef = db
+            .collection("registrations")
+            .where("attendance", "==", true);
+
+        registrationsRef.get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                var registrationData = doc.data();
+                displayRegistrationDetails(doc.id, registrationData);
+            });
+        });
+    } catch (e) {
+        console.error("Error fetching user data", e);
+    }
+}
+
 function markAttendance(registrationNumber) {
     try {
         var db = firebase.firestore();
-        db.collection("registrations").doc(`${registrationNumber}`).set(
-            {attendance: true},{ merge: true }
-        )
-        .then(() => {
-            alert("Attendance marked successfully");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
+        db.collection("registrations")
+            .doc(`${registrationNumber}`)
+            .set({ attendance: true }, { merge: true })
+            .then(() => {
+                alert("Attendance marked successfully");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+
+        // Fetch user data
+        fetchAllAttendedUserData();
     } catch (e) {
         console.error(`Error marking attendance for ${registrationNumber}`, e);
-    }   
+    }
 }
 
 // Function to delete a registration entry
