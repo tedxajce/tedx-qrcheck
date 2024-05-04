@@ -93,9 +93,9 @@ function displayAttendedUserData(data) {
 
     var row = document.createElement("tr");
 
-    row.id = `row_${registrationNo}`;
+    row.id = `row_${data.id}`;
     row.innerHTML = `
-    <td>${registrationNo}</td>
+    <td>${data.id}</td>
     <td>${data.name}</td>
 `;
 
