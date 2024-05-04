@@ -64,16 +64,18 @@ function getUserData(id) {
                     const data = doc.data();
                     const heroSection = document.getElementById("hero-section");
 
+                    // Display a card that thanks the user for attending the TEDxAJCE 2024 event
                     heroSection.innerHTML = `
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">${data.name}</h5>
-                                <p class="card-text">${data.registrationNumber}</p>
+                                <h5 class="card-title">Dear ${data.name},</h5>
+                                <p class="card-text">Thank you for attending TEDxAJCE 2024 <br> We are glad to have you with us. Your registration number is ${data.id}</p>
                             </div>
                         </div>
                     `;
                 } else {
                     console.log("No such document!");
+                    alert("Could not find the user with the given registration number");
                 }
             })
             .catch((error) => {
