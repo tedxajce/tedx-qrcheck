@@ -61,27 +61,26 @@ function getUserData(id) {
       .then((doc) => {
         if (doc.exists) {
           const data = doc.data();
+          const tedxTitle = document.getElementById("fbs-tedx");
           const mainAttendanceBtn = document.getElementById("fbs-attendance-btn-main");
           const heroSectionTitle = document.getElementById("fbs-title");
           const heroSectionDescription =
             document.getElementById("fbs-description");
 
-          heroSectionTitle.innerHTML = `<span class="text-line"> Hello,</span>
+          heroSectionTitle.innerHTML = `<span class="text-line"> Hello,</span><br>
                     <span class="wow fadeInLeft" data-wow-delay=".4s">${
-                      data.name.split(" ")[0]
+                      data.name
                     }</span>`;
-          heroSectionDescription.style.display = "block";
+          heroSectionTitle.style.display = "block";
 
           heroSectionDescription.innerHTML = 
           `<span class="text-line-small">
                 Thank you for attending TEDx AJCE 2024 🎉
-            </span><br />
-            <span class="text-line-small">
-                Your registration number is
-            <span>${data.id}</span></span>`;
+            </span>`;
           
             heroSectionDescription.style.display = "block";
             mainAttendanceBtn.style.display = "none";
+            tedxTitle.style.display = "none";
         } else {
           console.log("No such document!");
           alert("Could not find the user with the given registration number");
