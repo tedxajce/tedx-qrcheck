@@ -1,4 +1,4 @@
-# TEDxAJCE 2024 Website
+# TEDxAJCE 2024 Registration Verification
 
 This repository contains the source code for the TEDxAJCE 2024 event registration verification.
 
