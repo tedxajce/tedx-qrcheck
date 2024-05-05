@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TEDxAJCE - 2024</title>
+    <!-- favicon -->
+    <link
+      rel="shortcut icon"
+      href="./images/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon" />
+
+    <!-- meta tags -->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta property="og:title" content="TEDxAJCE-2024" />
+    <meta
+      property="og:description"
+      content="TEDxAJCE is an independently organized TEDx event with the goal of catering the global experience of TED to our community at Amal Jyothi College of Engineering"
+    />
+    <meta property="og:image" content="images/meta/TEDxAJCE_metaimg.png" />
+    <meta name="robots" content="follow, index" />
+    <meta
+      content="TEDxAJCE,TEDxAJCE-2024, TED, TEDx, AJCE, 2024, TEDx AJCE 2024, TEDx AJCE TICKET"
+      name="keywords"
+    />
+    <meta content="TEDxAJCE" name="author" />
+    <!-- CSS Files -->
+    <link
+      href="css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+      id="bootstrap"
+    />
+    <link href="css/mdb.min.css" rel="stylesheet" type="text/css" id="mdb" />
+    <link href="css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/coloring.css" rel="stylesheet" type="text/css" />
+
+    <!-- color scheme -->
+    <link
+      id="colors"
+      href="css/colors/blue-teal.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- font awesome -->
+    <!--<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> -->
+
+    <!-- QR Code -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <!-- Firebase -->
+    <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.7.1/firebase-auth-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-database-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-firestore-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-functions-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-messaging-compat.js"
+    ></script>
+    <script defer src="/__/firebase/10.7.1/firebase-storage-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-analytics-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-remote-config-compat.js"
+    ></script>
+    <script
+      defer
+      src="/__/firebase/10.7.1/firebase-performance-compat.js"
+    ></script>
+    <!-- 
+          initialize the SDK after all desired features are loaded, set useEmulator to false
+          to avoid connecting the SDK to running emulators.
+        -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style>
+      /* css for qr code reader */
+      #qr-reader {
+        padding: 20px !important;
+        border: 1.5px solid #b2b2b2 !important;
+        border-radius: 8px;
+      }
+
+      #qr-reader img[alt="Info icon"] {
+        display: none;
+      }
+
+      #qr-reader img[alt="Camera based scan"] {
+        width: 100px !important;
+        height: 100px !important;
+      }
+
+      #qr-reader button {
+        padding: 10px 20px;
+        border: 1px solid #b2b2b2;
+        outline: none;
+        border-radius: 0.25em;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        background-color: #008000ad;
+        transition: 0.3s background-color;
+      }
+
+      #qr-reader button:hover {
+        background-color: #008000;
+      }
+
+      #html5-qrcode-anchor-scan-type-change {
+        text-decoration: none !important;
+        color: #1d9bf0;
+      }
+
+      video {
+        width: 100% !important;
+        border: 1px solid #b2b2b2 !important;
+        border-radius: 0.25em;
+      }
+
+      /* css for content */
+      .text-line-small {
+        font-size: 1.5rem;
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .menu_side_area a:hover, #fbs-attendance-btn-main:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body class="dark-scheme">
+    <div id="wrapper">
+      <div class="scrollbar"></div>
+      <div id="de-loader"></div>
+
+      <!-- header begin -->
+      <header class="transparent">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="de-flex sm-pt10">
+                <div class="de-flex-col">
+                  <div class="de-flex-col">
+                    <!-- logo begin -->
+                    <div id="logo">
+                      <a href="index.html">
+                        <img
+                          class="logo-main"
+                          src="images/logo/logo.png"
+                          alt=""
+                        />
+                        <img
+                          class="logo-mobile"
+                          src="images/logo/logo-mobile.png"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <!-- logo close -->
+                  </div>
+                </div>
+                <div class="de-flex-col header-col-mid"></div>
+                <div class="de-flex-col">
+                  <div class="menu_side_area">
+                    <a
+                      onclick="$('#attendanceModal').modal('show')"
+                      class="btn-line"
+                      >Verify Attendance</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- header close -->
+
+      <!-- content begin -->
+      <div class="no-bottom no-top" id="content">
+        <!-- float text begin -->
+        <div class="float-text">
+          <div class="de_social-icons">
+            <a href="https://www.instagram.com/tedxajce/" target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/company/tedx-ajce/"
+              target="_blank"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
+            <a
+              href="https://www.flickr.com/photos/165706544@N05/"
+              target="_blank"
+              ><i class="fa-brands fa-flickr"></i
+            ></a>
+          </div>
+        </div>
+        <!-- float text close -->
+
+        <div id="top"></div>
+        <section id="section-hero" class="jarallax">
+          <img
+            src="images/background/1.jpg"
+            class="jarallax-img hero-bg"
+            alt=""
+          />
+          <div class="container position-relative z1000 wow fadeInDown">
+            <div class="row align-items-center position-relative">
+              <div class="spacer-double d-lg-none d-sm-block"></div>
+              <div class="col-lg-12 z1000">
+                <div class="spacer-double"></div>
+                <h1
+                  class="ultra-big text-uppercase mb-4 wow fadeInRight"
+                  style="display: none"
+                  id="fbs-title"
+                >
+                  <span class="text-line"> Hello,</span>
+                  <span
+                    class="wow fadeInLeft"
+                    data-wow-delay=".4s"
+                    id="fbs-username"
+                    >{username}</span
+                  >
+                </h1>
+                <p style="display: none" id="fbs-description">
+                  <span class="text-line-small"
+                    >Thank you for attending TEDx AJCE 2024 🎉</span
+                  ><br />
+                  <span class="text-line-small"
+                    >Your registration number is
+                    <span id="fbs-registration-number">{number}</span></span
+                  >
+                </p>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-lg-1 col-2">
+                <img
+                  src="images/misc/ripple-1.png"
+                  class="img-fluid wow fadeInLeft hero-abs moving-vertical"
+                  alt=""
+                />
+              </div>
+
+              <div class="spacer-single d-lg-none d-sm-block"></div>
+
+              <div class="col-lg-4 col-12-sm">
+                <a
+                  class="btn-main big wow fadeInLeft"
+                  onclick="$('#attendanceModal').modal('show')"
+                  id="fbs-attendance-btn-main"
+                  >Verify Attendance</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="de-gradient-edge-bottom"></div>
+        </section>
+      </div>
+      <!-- content close -->
+
+      <a href="index.html#" id="back-to-top"></a>
+
+      <!-- footer begin -->
+      <footer>
+        <div class="container">
+          <div class="row g-4 text-center">
+            <div class="col-lg-4 text-lg-start">
+              <div class="social-icons">
+                <a href="https://www.instagram.com/tedxajce/" target="_blank"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+                <a
+                  href="https://www.linkedin.com/company/tedx-ajce/"
+                  target="_blank"
+                  ><i class="fa-brands fa-linkedin"></i
+                ></a>
+                <a
+                  href="https://www.flickr.com/photos/165706544@N05/"
+                  target="_blank"
+                  ><i class="fa-brands fa-flickr"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-lg-4 text-lg-center mb-4 mt-lg-0">
+              <img src="images/logo/logo.png" class="" alt="" />
+            </div>
+            <div class="col-lg-4 text-lg-end">Copyright 2024 -TEDxAJCE</div>
+          </div>
+        </div>
+      </footer>
+      <!-- footer close -->
+    </div>
+
+    <!-- Attendance Modal -->
+    <div
+      class="modal fade"
+      id="attendanceModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="attendanceModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="attendanceModalLabel">
+              Scan Ticket OR Enter UID
+            </h5>
+            <button
+              type="button"
+              class="close"
+              onclick="$('#attendanceModal').modal('hide')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-2 py-2" id="qr-reader"></div>
+
+          <!-- Option to search user id -->
+          <div class="modal-footer">
+            <input
+              type="text"
+              class="form-control"
+              id="search-user-id"
+              placeholder="Search User ID"
+            />
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="search-user-id-button"
+              onclick="getUserData(document.getElementById('search-user-id').value)"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Attendance Modal -->
+
+    <!-- Javascript Files -->
+    <script defer src="./static/js/main.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/designesia.js"></script>
+    <script src="js/jquery.countdown.js"></script>
+  </body>
+</html>
