@@ -97,6 +97,8 @@ function displayAttendedUserData(data) {
     row.innerHTML = `
     <td>${data.id}</td>
     <td>${data.name}</td>
+    <td>${data.lunch ? "✅" : "❌"}</td>
+    <td>${data.swags ? "✅" : "❌"}</td>
 `;
 
     tableBody.appendChild(row);
@@ -126,28 +128,122 @@ function fetchAllAttendedUserData() {
 function markAttendance(registrationNumber) {
     try {
         var db = firebase.firestore();
+
         db.collection("registrations")
             .doc(`${registrationNumber}`)
-            .set({ attendance: true }, { merge: true })
-            .then(() => {
-                alert("Attendance marked successfully");
-                fetchAllAttendedUserData();
-            })
-            .then(() => {
-                // Set the attendance status in the table
-                var row = document.getElementById(`row_${registrationNumber}`);
-                row.innerHTML = `
-                    <td>${registrationNumber}</td>
-                    <td>${row.cells[1].innerText}</td>
-                    <td>Attendance Marked</td>
-                    <td><button class="btn btn-danger" disabled onclick="deleteEntry('${registrationNumber}')"><i class="fa fa-times"></i></button></td>
-                `;
-            })
-            .catch((error) => {
-                console.error("Error writing document: ", error);
+            .get()
+            .then((doc) => {
+                if (!doc.exists) {
+                    alert("Invalid registration number");
+                    return;
+                }
+                if (doc.data().attendance) {
+                    if (!doc.data().lunch) {
+                        // Ask if the user wants to mark lunch
+                        if (confirm("Attendance already marked. Do you want to mark lunch?")) {
+                            markLunch(registrationNumber);
+                        }
+                    } else if (!doc.data().swags) {
+                        // Ask if the user wants to mark swags
+                        if (confirm("Lunch already marked. Do you want to mark swags?")) {
+                            markSwags(registrationNumber);
+                        }
+                    } else {
+                        alert("User has already availed all benefits!");
+                    }
+                } else {
+                    db.collection("registrations")
+                        .doc(`${registrationNumber}`)
+                        .set({ attendance: true }, { merge: true })
+                        .then(() => {
+                            alert("Attendance marked successfully");
+                            fetchAllAttendedUserData();
+                        })
+                        .then(() => {
+                            // Set the attendance status in the table
+                            var row = document.getElementById(
+                                `row_${registrationNumber}`
+                            );
+                            row.innerHTML = `
+                                <td>${registrationNumber}</td>
+                                <td>${row.cells[1].innerText}</td>
+                                <td>Attendance Marked</td>
+                                <td><button class="btn btn-danger" disabled onclick="deleteEntry('${registrationNumber}')"><i class="fa fa-times"></i></button></td>
+                            `;
+                        })
+                        .catch((error) => {
+                            console.error("Error writing document: ", error);
+                        });
+                }
             });
     } catch (e) {
         console.error(`Error marking attendance for ${registrationNumber}`, e);
+    }
+}
+
+function markLunch(registrationNumber) {
+    try {
+        var db = firebase.firestore();
+
+        db.collection("registrations")
+            .doc(`${registrationNumber}`)
+            .get()
+            .then((doc) => {
+                if (!doc.exists) {
+                    alert("Invalid registration number");
+                    return;
+                }
+                if (doc.data().lunch) {
+                    alert("Lunch already taken for this user");
+                    return;
+                } else {
+                    db.collection("registrations")
+                        .doc(`${registrationNumber}`)
+                        .set({ lunch: true }, { merge: true })
+                        .then(() => {
+                            alert("Lunch availed successfully");
+                            fetchAllAttendedUserData();
+                        })
+                        .catch((error) => {
+                            console.error("Error writing document: ", error);
+                        });
+                }
+            });
+    } catch (e) {
+        console.error(`Error availing lunch for ${registrationNumber}`, e);
+    }
+}
+
+function markSwags(registrationNumber) {
+    try {
+        var db = firebase.firestore();
+
+        db.collection("registrations")
+            .doc(`${registrationNumber}`)
+            .get()
+            .then((doc) => {
+                if (!doc.exists) {
+                    alert("Invalid registration number");
+                    return;
+                }
+                if (doc.data().swags) {
+                    alert("Swags already taken for this user");
+                    return;
+                } else {
+                    db.collection("registrations")
+                        .doc(`${registrationNumber}`)
+                        .set({ swags: true }, { merge: true })
+                        .then(() => {
+                            alert("Swags availed successfully");
+                            fetchAllAttendedUserData();
+                        })
+                        .catch((error) => {
+                            console.error("Error writing document: ", error);
+                        });
+                }
+            });
+    } catch (e) {
+        console.error(`Error availing swags for ${registrationNumber}`, e);
     }
 }
 

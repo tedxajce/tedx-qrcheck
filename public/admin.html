@@ -9,8 +9,10 @@
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta property="og:title" content="TEDxAJCE - 2024" />
-        <meta property="og:description"
-          content="TEDxAJCE is an independently organized TEDx event with the goal of catering the global experience of TED to our community at Amal Jyothi College of Engineering" />
+        <meta
+            property="og:description"
+            content="TEDxAJCE is an independently organized TEDx event with the goal of catering the global experience of TED to our community at Amal Jyothi College of Engineering"
+        />
         <meta property="og:image" content="static/images/logo.png" />
         <meta name="robots" content="follow, index" />
         <meta content="TEDxAJCE,TEDxAJCE-2024" name="keywords" />
@@ -22,11 +24,7 @@
             href="static/images/favicon.ico"
             type="image/x-icon"
         />
-        <link
-            rel="icon"
-            href="static/images/favicon.ico"
-            type="image/x-icon"
-        />
+        <link rel="icon" href="static/images/favicon.ico" type="image/x-icon" />
         <!-- favicon -->
 
         <!-- QR Code -->
@@ -169,7 +167,7 @@
                             data-toggle="modal"
                             data-target="#attendanceModal"
                         >
-                            Mark Attendance
+                            QR Scanner
                         </button>
                     </li>
                     <li class="nav-item">
@@ -226,30 +224,59 @@
                         id="registrationNumber"
                     />
                 </div>
-                <div class="col-lg-2">
-                    <button
-                        class="btn btn-outline-secondary ml-2 mb-2"
-                        type="button"
-                        onclick="markAttendance(document.getElementById('registrationNumber').value)"
-                    >
-                        Mark Attendance
-                    </button>
+                <div class="col-lg-6">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-outline-secondary dropdown-toggle ml-2 mb-2"
+                            type="button"
+                            id="attendanceDropdown"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Mark
+                        </button>
+                        <div
+                            class="dropdown-menu"
+                            aria-labelledby="attendanceDropdown"
+                        >
+                            <a
+                                class="dropdown-item"
+                                href="#"
+                                onclick="markAttendance(document.getElementById('registrationNumber').value)"
+                                >Attendance</a
+                            >
+                            <a
+                                class="dropdown-item"
+                                href="#"
+                                onclick="markLunch(document.getElementById('registrationNumber').value)"
+                                >Lunch</a
+                            >
+                            <a
+                                class="dropdown-item"
+                                href="#"
+                                onclick="markSwags(document.getElementById('registrationNumber').value)"
+                                >Swags</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="row mt-4">
                 <div class="col-lg-6">
                     <!-- Registration Details Table -->
                     <h3 class="font-weight-bold">Registration Details</h3>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>Registration No.</th>
+                            <tr class="text-center">
+                                <th>Reg. No.</th>
                                 <th>Name</th>
                                 <th>Attendance</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody id="registrationTableBody">
+                        <tbody id="registrationTableBody" class="text-center">
                             <!-- Registration details will be appended here -->
                         </tbody>
                     </table>
@@ -259,12 +286,14 @@
                     <h3 class="font-weight-bold">Attended Participants</h3>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>Registration No.</th>
+                            <tr class="text-center">
+                                <th>Reg. No.</th>
                                 <th>Name</th>
+                                <th>Lunch</th>
+                                <th>Swags</th>
                             </tr>
                         </thead>
-                        <tbody id="attendedTableBody">
+                        <tbody id="attendedTableBody" class="text-center">
                             <!-- Attended participants details will be appended here -->
                         </tbody>
                     </table>
