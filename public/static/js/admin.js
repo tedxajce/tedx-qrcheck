@@ -62,6 +62,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.getElementById('csvFile').addEventListener('change', function(evt) {
+    var file = evt.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var contents = e.target.result;
+        var lines = contents.split('\n'); // split file into lines
+        var tableBody = document.getElementById('csvTableBody');
+        tableBody.innerHTML = ''; // clear table body
+
+        // iterate over lines, skip the header
+        for (var i = 1; i < lines.length; i++) {
+            var row = document.createElement('tr');
+            var cols = lines[i].split(','); // split line into columns
+
+            // create a cell for each column
+            for (var j = 0; j < cols.length; j++) {
+                var cell = document.createElement('td');
+                cell.textContent = cols[j];
+                row.appendChild(cell);
+            }
+
+            tableBody.appendChild(row);
+        }
+    };
+    reader.readAsText(file);
+});
+
 // Function to display registration details in the table
 function displayRegistrationDetails(registrationNo, data) {
     var tableBody = document.getElementById("registrationTableBody");
@@ -245,6 +272,39 @@ function markSwags(registrationNumber) {
     } catch (e) {
         console.error(`Error availing swags for ${registrationNumber}`, e);
     }
+}
+
+function uploadCSVData() {
+    var db = firebase.firestore();
+
+    var tableBody = document.getElementById("csvTableBody");
+    var rows = tableBody.getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var cols = rows[i].getElementsByTagName("td");
+        try {
+            var registrationNumber = cols[0].innerText;
+            var name = cols[1].innerText;
+            db.collection("registrations")
+                .doc(`${registrationNumber}`)
+                .set({
+                    name: name,
+                    attendance: false,
+                    lunch: false,
+                    swags: false,
+                })
+                .then(() => {
+                    console.log("Document written successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+        } catch (e) {   
+            console.error("Error uploading data", e);
+        }
+    }
+    alert("Data uploaded successfully! Refresh to load the data in the table.");
+    
 }
 
 // Function to delete a registration entry
