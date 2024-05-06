@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var registrationNumber = result.registrationNumber;
         if (registrationNumber) {
           getUserData(registrationNumber);
-          $('#attendanceModal').modal('hide')
         }
         // result.forEach((data) => {
         //   const registrationNumber = data.registrationNumber;
@@ -85,6 +84,8 @@ function getUserData(id) {
           heroSectionDescription.style.display = "block";
           mainAttendanceBtn.style.display = "none";
           tedxTitle.style.display = "none";
+          document.getElementById('modal-close').click();
+
         } else {
           console.log("No such document!");
           alert("Could not find the user with the given registration number");
