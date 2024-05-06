@@ -33,12 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
       // If found you qr code
       function onScanSuccess(decodeText, decodeResult) {
         var result = JSON.parse(decodeText);
-        result.forEach((data) => {
-          const registrationNumber = data.registrationNumber;
-          if (registrationNumber) {
-            getUserData(registrationNumber);
-          }
-        });
+        var registrationNumber = result.registrationNumber;
+        if (registrationNumber) {
+          getUserData(registrationNumber);
+        }
+        // result.forEach((data) => {
+        //   const registrationNumber = data.registrationNumber;
+        //   if (registrationNumber) {
+        //     getUserData(registrationNumber);
+        //   }
+        // });
       }
 
       let htmlscanner = new Html5QrcodeScanner("qr-reader", {
@@ -68,19 +72,18 @@ function getUserData(id) {
             document.getElementById("fbs-description");
 
           heroSectionTitle.innerHTML = `<span class="text-line"> Hello,</span><br>
-                    <span class="wow fadeInLeft" data-wow-delay=".4s">${
-                      data.name
-                    }</span>`;
+                    <span class="wow fadeInLeft" data-wow-delay=".4s">${data.name
+            }</span>`;
           heroSectionTitle.style.display = "block";
 
-          heroSectionDescription.innerHTML = 
-          `<span class="text-line-small">
+          heroSectionDescription.innerHTML =
+            `<span class="text-line-small">
                 Thank you for attending TEDx AJCE 2024 🎉
             </span>`;
-          
-            heroSectionDescription.style.display = "block";
-            mainAttendanceBtn.style.display = "none";
-            tedxTitle.style.display = "none";
+
+          heroSectionDescription.style.display = "block";
+          mainAttendanceBtn.style.display = "none";
+          tedxTitle.style.display = "none";
         } else {
           console.log("No such document!");
           alert("Could not find the user with the given registration number");
