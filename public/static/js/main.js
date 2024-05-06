@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var registrationNumber = result.registrationNumber;
         if (registrationNumber) {
           getUserData(registrationNumber);
+          $('#attendanceModal').modal('hide')
         }
         // result.forEach((data) => {
         //   const registrationNumber = data.registrationNumber;
