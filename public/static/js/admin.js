@@ -43,12 +43,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // If found you qr code
             function onScanSuccess(decodeText, decodeResult) {
                 var result = JSON.parse(decodeText);
-                result.forEach((data) => {
-                    const registrationNumber = data.registrationNumber;
-                    if (registrationNumber) {
-                        markAttendance(registrationNumber);
-                    }
-                });
+                var registrationNumber = result.registrationNumber;
+                if (registrationNumber) {
+                    markAttendance(registrationNumber);
+                }
+                // result.forEach((data) => {
+                //     const registrationNumber = data.registrationNumber;
+                //     if (registrationNumber) {
+                //         markAttendance(registrationNumber);
+                //     }
+                // });
             }
 
             let htmlscanner = new Html5QrcodeScanner("qr-reader", {
