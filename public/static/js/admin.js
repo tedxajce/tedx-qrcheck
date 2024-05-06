@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var result = JSON.parse(decodeText);
                 var registrationNumber = result.registrationNumber;
                 if (registrationNumber) {
+                    document.getElementById('modal-close').click();
                     markAttendance(registrationNumber);
                 }
                 // result.forEach((data) => {
