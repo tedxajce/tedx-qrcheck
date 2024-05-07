@@ -297,6 +297,7 @@ function uploadCSVData() {
                     attendance: false,
                     lunch: false,
                     swags: false,
+                    id: registrationNumber,
                 })
                 .then(() => {
                     console.log("Document written successfully!");
