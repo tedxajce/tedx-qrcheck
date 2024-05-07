@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let htmlscanner = new Html5QrcodeScanner("qr-reader", {
         fps: 10,
-        qrbos: 250,
+        qrbox: { width: 250, height: 250 },
       });
       htmlscanner.render(onScanSuccess);
     });
