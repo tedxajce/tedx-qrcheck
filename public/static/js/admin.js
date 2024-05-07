@@ -42,18 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
         domReady(function () {
             // If found you qr code
             function onScanSuccess(decodeText, decodeResult) {
+                console.log(decodeText, decodeResult);
                 var result = JSON.parse(decodeText);
                 var registrationNumber = result.registrationNumber;
+                console.log(registrationNumber);
                 if (registrationNumber) {
-                    document.getElementById('modal-close').click();
+                    document.getElementById('modal-close-button').click();
                     markAttendance(registrationNumber);
                 }
-                // result.forEach((data) => {
-                //     const registrationNumber = data.registrationNumber;
-                //     if (registrationNumber) {
-                //         markAttendance(registrationNumber);
-                //     }
-                // });
             }
 
             let htmlscanner = new Html5QrcodeScanner("qr-reader", {
