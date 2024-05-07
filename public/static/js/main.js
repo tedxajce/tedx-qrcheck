@@ -35,14 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var result = JSON.parse(decodeText);
         var registrationNumber = result.registrationNumber;
         if (registrationNumber) {
+          $('#attendanceModal').modal('hide');
           getUserData(registrationNumber);
         }
-        // result.forEach((data) => {
-        //   const registrationNumber = data.registrationNumber;
-        //   if (registrationNumber) {
-        //     getUserData(registrationNumber);
-        //   }
-        // });
       }
 
       let htmlscanner = new Html5QrcodeScanner("qr-reader", {
@@ -58,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function getUserData(id) {
   try {
-    var registrationsRef = db.collection("registrations").doc(id);
+    var registrationsRef = db.collection("registrations").doc(`${id}`);
 
     registrationsRef
       .get()
