@@ -35,13 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 var registrationData = doc.data();
                 displayRegistrationDetails(doc.id, registrationData);
                 if (registrationData.attendance) {
-                    countRegistrations++;
+                    console.log("Attendance marked for", doc.id);
+                    countRegistrations += 1;
                 }
                 if (registrationData.lunch) {
-                    countLunch++;
+                    console.log("Lunch marked for", doc.id);
+                    countLunch += 1;
                 }
                 if (registrationData.swags) {
-                    countSwags++;
+                    console.log("Swags marked for", doc.id);
+                    countSwags += 1;
                 }
             });
         });
