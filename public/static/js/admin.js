@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var totalRegistrations = document.getElementById("totalAttended");
         var lunchRegistrations = document.getElementById("totalLunch");
         var swagsRegistrations = document.getElementById("totalSwags");
+        console.log(totalRegistrations, lunchRegistrations, swagsRegistrations);
 
         var countRegistrations = 0;
         var countLunch = 0;
@@ -44,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+
+        console.log(countRegistrations, countLunch, countSwags);
 
         totalRegistrations.innerHTML = countRegistrations;
         lunchRegistrations.innerHTML = countLunch;
