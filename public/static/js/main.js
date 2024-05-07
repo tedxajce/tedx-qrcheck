@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (registrationNumber) {
           $('#attendanceModal').modal('hide');
           getUserData(registrationNumber);
+          htmlscanner.clear();
         }
       }
 
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function getUserData(id) {
   try {
+    console.log("Getting user data for id: ", id);
     var registrationsRef = db.collection("registrations").doc(`${id}`);
 
     registrationsRef

@@ -49,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (registrationNumber) {
                     document.getElementById('modal-close-button').click();
                     markAttendance(registrationNumber);
+                    html5QrcodeScanner.clear();
                 }
-                html5QrcodeScanner.clear();
             }
 
             let htmlscanner = new Html5QrcodeScanner("qr-reader", {
