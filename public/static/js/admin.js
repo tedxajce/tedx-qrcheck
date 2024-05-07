@@ -13,6 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.replace("/login.html"); // Replace with your login page URL
             }
         });
+
+        // p tags to display total registrations, participant who had lunch and participants who availed swags
+        var totalRegistrations = document.getElementById("totalAttended");
+        var lunchRegistrations = document.getElementById("totalLunch");
+        var swagsRegistrations = document.getElementById("totalSwags");
+
+        var countRegistrations = 0;
+        var countLunch = 0;
+        var countSwags = 0;
+
         // Firebase Firestore
         var db = firebase.firestore();
 
@@ -23,8 +33,21 @@ document.addEventListener("DOMContentLoaded", function () {
             querySnapshot.forEach(function (doc) {
                 var registrationData = doc.data();
                 displayRegistrationDetails(doc.id, registrationData);
+                if (registrationData.attendance) {
+                    countRegistrations++;
+                }
+                if (registrationData.lunch) {
+                    countLunch++;
+                }
+                if (registrationData.swags) {
+                    countSwags++;
+                }
             });
         });
+
+        totalRegistrations.innerHTML = countRegistrations;
+        lunchRegistrations.innerHTML = countLunch;
+        swagsRegistrations.innerHTML = countSwags;
 
         fetchAllAttendedUserData();
 
@@ -308,6 +331,28 @@ function uploadCSVData() {
     }
     alert("Data uploaded successfully! Refresh to load the data in the table.");
     
+}
+
+function downloadCSV() {
+    var db = firebase.firestore();
+    var registrationsRef = db.collection("registrations");
+
+    registrationsRef.get().then(function (querySnapshot) {
+        var csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Registration Number,Name,Attendance,Lunch,Swags\n";
+        querySnapshot.forEach(function (doc) {
+            var registrationData = doc.data();
+            csvContent += `${doc.id},${registrationData.name},${registrationData.attendance},${registrationData.lunch},${registrationData.swags}\n`;
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "registrations.csv");
+        document.body.appendChild(link); // Required for FF
+
+        link.click();
+    });
 }
 
 // Function to delete a registration entry
