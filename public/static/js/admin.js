@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var totalRegistrations = document.getElementById("totalAttended");
         var lunchRegistrations = document.getElementById("totalLunch");
         var swagsRegistrations = document.getElementById("totalSwags");
-        console.log(totalRegistrations, lunchRegistrations, swagsRegistrations);
 
         var countRegistrations = 0;
         var countLunch = 0;
@@ -35,25 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 var registrationData = doc.data();
                 displayRegistrationDetails(doc.id, registrationData);
                 if (registrationData.attendance) {
-                    console.log("Attendance marked for", doc.id);
                     countRegistrations += 1;
                 }
                 if (registrationData.lunch) {
-                    console.log("Lunch marked for", doc.id);
                     countLunch += 1;
                 }
                 if (registrationData.swags) {
-                    console.log("Swags marked for", doc.id);
                     countSwags += 1;
                 }
             });
+        }).then(() => {
+            totalRegistrations.innerHTML = countRegistrations;
+            lunchRegistrations.innerHTML = countLunch;
+            swagsRegistrations.innerHTML = countSwags;
         });
-
-        console.log(countRegistrations, countLunch, countSwags);
-
-        totalRegistrations.innerHTML = countRegistrations;
-        lunchRegistrations.innerHTML = countLunch;
-        swagsRegistrations.innerHTML = countSwags;
 
         fetchAllAttendedUserData();
 
